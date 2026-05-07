@@ -81,8 +81,8 @@ Once plugins are installed, copy and paste the following prompt into Claude Code
 You are building a personal user manual for me.
 
 First, read my Slack profile to get my name, title, and timezone. Then read
-the current index.html in this repo to understand the template structure,
-sections, and placeholder content you'll be filling in.
+the current index.html and designs/editorial.md in this repo to understand the
+template structure, design philosophy, sections, and placeholder content.
 
 Step 1 — Research
 Use the Slack MCP to gather information about me. Specifically:
@@ -109,10 +109,11 @@ From your research, infer and draft content for the following sections:
 - Fun facts / quirks — anything interesting, surprising, or delightful
 
 Step 3 — Build the site
-Using the existing index.html as your template, fill in all placeholder content
-with the synthesized information above. Preserve the HTML structure and CSS —
-only replace the [bracketed placeholder] text with real content.
-Make it something I'd actually want to share with teammates.
+Rewrite index.html with the synthesized content. Use the existing index.html as
+your structural template and designs/editorial.md as the style guide. Replace all
+[bracketed placeholder] text with real content from your research. Preserve the
+HTML structure and CSS design system. Make it something I'd actually want to
+share with teammates.
 ```
 
 Claude will read your Slack profile, research your messages, synthesize what it finds, and fill in the template.
