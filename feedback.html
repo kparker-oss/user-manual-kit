@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Feedback — BOLDforce SF × StudioFive10</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: #FAFAF8;
+      color: #1A1A1A;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .hero {
+      padding: 64px 0 48px;
+      position: relative;
+    }
+
+    .hero__gradient {
+      position: absolute;
+      top: -48px;
+      left: -200px;
+      right: -200px;
+      height: 300px;
+      background: linear-gradient(135deg, #D4760A 0%, #E8943D 30%, #F2B872 60%, transparent 100%);
+      opacity: 0.07;
+      pointer-events: none;
+      border-radius: 0 0 50% 50%;
+    }
+
+    .hero__content { position: relative; }
+
+    .hero__tag {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #D4760A;
+      margin-bottom: 16px;
+    }
+
+    .hero__title {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+
+    .hero__sub {
+      font-size: 15px;
+      color: #5C5C5C;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .form-body {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .q {
+      background: #FFFFFF;
+      border: 1px solid #EBEBEB;
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .q__label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .q__label .req {
+      color: #D4760A;
+      margin-left: 2px;
+    }
+
+    .q__hint {
+      font-size: 13px;
+      color: #8C8C8C;
+      margin-bottom: 14px;
+    }
+
+    /* Radio & Checkbox options */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #EBEBEB;
+      background: #FAFAF8;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .option:hover {
+      border-color: #D4760A;
+      background: #FFF9F3;
+    }
+
+    .option input[type="radio"],
+    .option input[type="checkbox"] {
+      accent-color: #D4760A;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .option input[type="radio"]:checked + .option__text,
+    .option input[type="checkbox"]:checked + .option__text {
+      color: #1A1A1A;
+      font-weight: 500;
+    }
+
+    .option:has(input:checked) {
+      border-color: #D4760A;
+      background: #FFF9F3;
+    }
+
+    .option__text {
+      font-size: 14px;
+      color: #5C5C5C;
+    }
+
+    /* Star rating */
+    .stars {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .stars input { display: none; }
+
+    .stars label {
+      font-size: 32px;
+      color: #DDDDD8;
+      cursor: pointer;
+      transition: color 0.1s;
+      line-height: 1;
+    }
+
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #D4760A;
+    }
+
+    .star-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      padding: 0 2px;
+    }
+
+    .star-labels span {
+      font-size: 11px;
+      color: #8C8C8C;
+    }
+
+    /* Textarea & text input */
+    textarea, input[type="text"] {
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      color: #1A1A1A;
+      background: #FAFAF8;
+      border: 1px solid #EBEBEB;
+      border-radius: 8px;
+      padding: 10px 12px;
+      resize: vertical;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    textarea:focus, input[type="text"]:focus {
+      border-color: #D4760A;
+      background: #FFFFFF;
+    }
+
+    textarea { min-height: 90px; }
+
+    /* Submit button */
+    .submit-wrap {
+      padding-top: 8px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #D4760A, #E8943D);
+      color: white;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover { opacity: 0.92; }
+    .btn-submit:active { transform: scale(0.99); }
+
+    /* Success state */
+    .success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+      background: #FFFFFF;
+      border: 1px solid #EBEBEB;
+      border-radius: 14px;
+    }
+
+    .success__icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success__title {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .success__msg {
+      font-size: 15px;
+      color: #5C5C5C;
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #EBEBEB;
+      font-size: 12px;
+      color: #AAAAAA;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <div class="hero__gradient"></div>
+      <div class="hero__content">
+        <div class="hero__tag">BOLDforce SF × StudioFive10</div>
+        <h1 class="hero__title">Program Feedback</h1>
+        <p class="hero__sub">Thank you for spending the day with us. Your feedback helps us build better experiences for future students — it only takes about 3 minutes.</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form
+      id="feedbackForm"
+      class="form-body"
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+    >
+
+      <!-- Q1: Who are you? -->
+      <div class="q">
+        <label class="q__label">Which best describes you? <span class="req">*</span></label>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="role" value="Student" required>
+            <span class="option__text">Student</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="role" value="Chaperone">
+            <span class="option__text">Chaperone</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="role" value="StudioFive10 Staff">
+            <span class="option__text">StudioFive10 Staff</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q2: Overall rating -->
+      <div class="q">
+        <label class="q__label">Overall, how would you rate the program? <span class="req">*</span></label>
+        <p class="q__hint">1 = Poor &nbsp;·&nbsp; 5 = Excellent</p>
+        <div class="stars">
+          <input type="radio" name="overall_rating" id="s5" value="5" required>
+          <label for="s5">★</label>
+          <input type="radio" name="overall_rating" id="s4" value="4">
+          <label for="s4">★</label>
+          <input type="radio" name="overall_rating" id="s3" value="3">
+          <label for="s3">★</label>
+          <input type="radio" name="overall_rating" id="s2" value="2">
+          <label for="s2">★</label>
+          <input type="radio" name="overall_rating" id="s1" value="1">
+          <label for="s1">★</label>
+        </div>
+      </div>
+
+      <!-- Q3: Familiarity with tech careers -->
+      <div class="q">
+        <label class="q__label">Before today, how familiar were you with careers in technology?</label>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="prior_familiarity" value="Not familiar at all">
+            <span class="option__text">Not familiar at all</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="prior_familiarity" value="Slightly familiar">
+            <span class="option__text">Slightly familiar</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="prior_familiarity" value="Somewhat familiar">
+            <span class="option__text">Somewhat familiar</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="prior_familiarity" value="Very familiar">
+            <span class="option__text">Very familiar</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q4: Better understanding -->
+      <div class="q">
+        <label class="q__label">Do you now have a better understanding of career pathways in tech and business? <span class="req">*</span></label>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="better_understanding" value="Yes" required>
+            <span class="option__text">Yes</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="better_understanding" value="Somewhat">
+            <span class="option__text">Somewhat</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="better_understanding" value="No">
+            <span class="option__text">No</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q5: Most impactful segment -->
+      <div class="q">
+        <label class="q__label">Which part of the program had the greatest impact on you?</label>
+        <p class="q__hint">Select all that apply</p>
+        <div class="options">
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="Welcome & Icebreaker">
+            <span class="option__text">Welcome &amp; Icebreaker</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="Keynote Session with Molly Ford">
+            <span class="option__text">Keynote Session with Molly Ford</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="Real Stories, Real Pathways Panel">
+            <span class="option__text">Real Stories, Real Pathways Panel</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="Lunch & Networking">
+            <span class="option__text">Lunch &amp; Networking</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="AI Readiness Session">
+            <span class="option__text">AI Readiness Session</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="Bias in AI Session">
+            <span class="option__text">Bias in AI Session</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="impactful_segment" value="Ohana Floor Visit">
+            <span class="option__text">'Ohana Floor Visit</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q6: Saw new possibilities -->
+      <div class="q">
+        <label class="q__label">"This program helped me see new possibilities for my future."</label>
+        <p class="q__hint">1 = Strongly Disagree &nbsp;·&nbsp; 5 = Strongly Agree</p>
+        <div class="stars">
+          <input type="radio" name="new_possibilities" id="p5" value="5">
+          <label for="p5">★</label>
+          <input type="radio" name="new_possibilities" id="p4" value="4">
+          <label for="p4">★</label>
+          <input type="radio" name="new_possibilities" id="p3" value="3">
+          <label for="p3">★</label>
+          <input type="radio" name="new_possibilities" id="p2" value="2">
+          <label for="p2">★</label>
+          <input type="radio" name="new_possibilities" id="p1" value="1">
+          <label for="p1">★</label>
+        </div>
+      </div>
+
+      <!-- Q7: Felt welcomed -->
+      <div class="q">
+        <label class="q__label">"I felt welcomed, represented, and included throughout the program."</label>
+        <p class="q__hint">1 = Strongly Disagree &nbsp;·&nbsp; 5 = Strongly Agree</p>
+        <div class="stars">
+          <input type="radio" name="welcomed" id="w5" value="5">
+          <label for="w5">★</label>
+          <input type="radio" name="welcomed" id="w4" value="4">
+          <label for="w4">★</label>
+          <input type="radio" name="welcomed" id="w3" value="3">
+          <label for="w3">★</label>
+          <input type="radio" name="welcomed" id="w2" value="2">
+          <label for="w2">★</label>
+          <input type="radio" name="welcomed" id="w1" value="1">
+          <label for="w1">★</label>
+        </div>
+      </div>
+
+      <!-- Q8: Key takeaway -->
+      <div class="q">
+        <label class="q__label">What is one thing you learned or will take away from today? <span class="req">*</span></label>
+        <textarea name="takeaway" placeholder="Share your biggest takeaway..." required></textarea>
+      </div>
+
+      <!-- Q9: Standout moment -->
+      <div class="q">
+        <label class="q__label">What speaker, session, or moment stood out most to you — and why?</label>
+        <textarea name="standout_moment" placeholder="Tell us what resonated..."></textarea>
+      </div>
+
+      <!-- Q10: Improvements -->
+      <div class="q">
+        <label class="q__label">Is there anything we could do to improve future programs?</label>
+        <textarea name="improvements" placeholder="Any suggestions are welcome..."></textarea>
+      </div>
+
+      <!-- Q11: Anything else -->
+      <div class="q">
+        <label class="q__label">Anything else you'd like to share?</label>
+        <textarea name="other_comments" placeholder="Additional thoughts, shoutouts, questions..."></textarea>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="btn-submit">Submit Feedback →</button>
+      </div>
+
+    </form>
+
+    <!-- Success message (shown after submit) -->
+    <div class="success" id="successMsg">
+      <div class="success__icon">🙏🏾</div>
+      <div class="success__title">Thank you!</div>
+      <p class="success__msg">Your feedback means a lot to the BOLDforce SF team. We read every response and use it to make future programs even better. We hope today inspired you.</p>
+    </div>
+
+    <div class="footer">BOLDforce SF × StudioFive10 &nbsp;·&nbsp; Salesforce, San Francisco</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('feedbackForm');
+    const success = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          btn.textContent = 'Something went wrong — try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
